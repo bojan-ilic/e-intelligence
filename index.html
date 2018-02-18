@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online kupovina putnog osiguranja</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+    <script>
+//      Radio buttons show-hide
+        function show1(){
+            document.getElementById('hide').style.display ='none';
+        }
+        function show2(){
+            document.getElementById('hide').style.display = 'block';
+        }
+
+        //Add-Remove
+        $(document).ready(function(){
+            //group add limit
+            var maxGroup = 10;
+
+            //add more fields group
+            $(".addMore").click(function(){
+                if($('body').find('.fieldGroup').length < maxGroup){
+                    var fieldHTML = '<div class="form-group fieldGroup">'+$(".fieldGroupCopy").html()+'</div>';
+                    $('body').find('.fieldGroup:last').after(fieldHTML);
+                }else{
+                    alert('Maximum '+maxGroup+' groups are allowed.');
+                }
+            });
+
+            //remove fields group
+            $("body").on("click",".remove",function(){
+                $(this).parents(".fieldGroup").remove();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrapper" class="container">
+    <div class="row jumbotron">
+        <div class="col-xs-10 col-sm-10 col-md-12 col-lg-12 heading page-header">
+            <h1>Online kupovina putnog osiguranja</h1>
+        </div><!-- end .col-*-* -->
+    </div><!-- end .row-->
+    <div action="#">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="input-first-name">Ime</label>
+                <input type="text" id="input-first-name" class="form-control" placeholder="Ime">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="input-last-name">Prezime</label>
+                <input type="text" id="input-last-name" class="form-control" placeholder="Prezime">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="input-date">Datum rođenja</label>
+                <input type="text" id="input-date" class="form-control" placeholder="DD.MM.YYYY"/>
+            </div>
+        </div>
+
+        <div id="radio" class="custom-control custom-radio">
+            <div class="row">
+                <div class="col-form-label col-sm-3 pt-0">Odabir vrste polise osiguranja:</div>
+                <div class="col-sm-9">
+                    <div class="form-check radio-margin">
+                        <input class="custom-control-input" type="radio"  name="gridRadios" id="radio1" onclick="show1();">
+                        <label class="custom-control-label" for="radio1">Individualno</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="custom-control-input" type="radio" name="gridRadios" id="radio2" onclick="show2();">
+                        <label class="custom-control-label" for="radio2">Grupno</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="input-first-number">Telefon:</label>
+                <input type="tel" class="form-control" id="input-first-number" placeholder="+381">
+            </div>
+        </div>
+
+       <!-- Date picker-->
+        <div class="form-row">
+            <div class="form-group col-sm-6 col-md-6">
+                <label for="TextBox1">Datum putovanja:</label><br>
+                <input type="text" id="TextBox1" name="daterange"  size="23"/>
+
+                <script type="text/javascript">
+                    $(function() {
+                        $('input[name="daterange"]').daterangepicker();
+                    });
+                </script>
+            </div>
+            <div class="form-group col-sm-6 col-md-6">
+                <label for="TextBox3">Trajanje osiguranja</label>
+                <input type="text" class="form-control" id="TextBox3">
+            </div>
+        </div><!-- end .form-row -->
+        <!--End data picker-->
+
+        <!-- Add/Remove -->
+        <form method="post" action="submit.php">
+            <div id="hide" class="hide">
+                    <div class="form-group fieldGroup">
+                        <div class="input-group">
+                            <input type="text" name="name[]" class="form-control" placeholder="Ime"/>
+                            <input type="text" name="email[]" class="form-control" placeholder="Prezime"/>
+                            <input type="text" name="date[]" class="form-control" placeholder="Datum rođenja"/>
+                            <div class="input-group-addon">
+                                <a href="javascript:void(0)" class="btn btn-success addMore"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add</a>
+                            </div>
+                        </div>
+                    </div>
+        </form>
+
+                <!-- copy of input fields group -->
+                <div class="form-group fieldGroupCopy" style="display: none;">
+                    <div class="input-group">
+                        <input type="text" name="name[]" class="form-control col-md-4" placeholder="Ime"/>
+                        <input type="text" name="email[]" class="form-control" col-md-4 placeholder="Prezime"/>
+                        <input type="text" name="date[]" class="form-control" col-md-4 placeholder="Datum rođenja"/>
+                        <div class="input-group-addon">
+                            <a href="javascript:void(0)" class="btn btn-danger remove"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Add/Remove -->
+            </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div><!-- end #wrapper .container-->
+</body>
+</html>
